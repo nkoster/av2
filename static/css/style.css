@@ -18,6 +18,9 @@ a {
 html, body {
     height: 100%;
     overflow: hidden;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 body {
@@ -77,13 +80,14 @@ header nav a {
     width: 100%;
     text-align: center;
     color: black;
-    padding-left: 1.2rem;
-    padding-right: 3.2rem;
+    padding: .5rem 3.2rem .5rem 1.2rem;
 }
 
 main {
-    flex: 1;
     overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .icon {
@@ -118,9 +122,14 @@ a.envelope:hover {
     color: white;
 }
 
+.content {
+    flex: 1;
+}
+
 .footer {
     background-color: black;
     color: white;
     text-align: center;
     padding: 1rem;
+    margin-top: auto;
 }
