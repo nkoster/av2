@@ -1,1 +1,12 @@
 <h1>PRODUCTEN</h1>
+
+{{range $i, $p := .Products}}
+<div class="product-item">
+    <h3>{{$p.Title}}</h3>
+    <p>Prijs: €{{$p.Price}}</p>
+    <p>Beschrijving: {{$p.Descr}}</p>
+    <a href="/product/{{$p.ID}}">Details</a>
+</div>
+{{else}}
+<p>Geen producten gevonden.</p>
+{{end}}
