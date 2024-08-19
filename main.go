@@ -1,13 +1,18 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
+	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 )
+
+var db *sql.DB
+var err error
 
 // Helper function to load file content into a template.HTML
 func loadFileContent(filePath string) template.HTML {
@@ -19,47 +24,26 @@ func loadFileContent(filePath string) template.HTML {
 }
 
 func main() {
+
+	// Load the .env file
+	if err = godotenv.Load(); err != nil {
+		log.Fatal("No .env file in current directory.")
+	}
+
+	// Connect to the database
+	connect()
+
+	// Serve static files from the "static" directory
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// Load index.html from the "ui" directory
-		t, _ := template.ParseFiles(filepath.Join("ui", "index.html"))
-		content := loadFileContent(filepath.Join("templates", "home.html")) // Load the content of home.html
-		if err := t.Execute(w, map[string]template.HTML{"Content": content}); err != nil {
-			fmt.Println(err)
-		}
-	})
+	// Define the routes
+	http.HandleFunc("/", routeMain)
+	http.HandleFunc("/over", routeOver)
+	http.HandleFunc("/producten", routeProducten)
+	http.HandleFunc("/contact", routeContact)
 
-	http.HandleFunc("/over", func(w http.ResponseWriter, r *http.Request) {
-		// Load index.html from the "ui" directory and content from the "templates" directory
-		t, _ := template.ParseFiles(filepath.Join("ui", "index.html"))
-		// Load the content of over.html
-		content := loadFileContent(filepath.Join("templates", "over.html"))
-		if err := t.Execute(w, map[string]template.HTML{"Content": content}); err != nil {
-			fmt.Println(err)
-		}
-	})
-
-	http.HandleFunc("/producten", func(w http.ResponseWriter, r *http.Request) {
-		// Load index.html from the "ui" directory and content from the "templates" directory
-		t, _ := template.ParseFiles(filepath.Join("ui", "index.html"))
-		// Load the content of producten.html
-		content := loadFileContent(filepath.Join("templates", "producten.html"))
-		if err := t.Execute(w, map[string]template.HTML{"Content": content}); err != nil {
-			fmt.Println(err)
-		}
-	})
-
-	http.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
-		// Load index.html from the "ui" directory and content from the "templates" directory
-		t, _ := template.ParseFiles(filepath.Join("ui", "index.html"))
-		// Load the content of contact.html
-		content := loadFileContent(filepath.Join("templates", "contact.html"))
-		if err := t.Execute(w, map[string]template.HTML{"Content": content}); err != nil {
-			fmt.Println(err)
-		}
-	})
+	// Start the server
 	fmt.Println("Server is running on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
