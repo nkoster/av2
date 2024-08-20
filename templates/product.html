@@ -1,0 +1,39 @@
+<body>
+
+{{if .Product.Descr}}
+<h1>{{.Product.Title}}</h1>
+
+<div>
+    <h2>Beschrijving</h2>
+    <p>{{.Product.Descr}}</p>
+</div>
+
+<div>
+    <h2>Specificaties</h2>
+    <p>{{.Product.Specs}}</p>
+</div>
+
+<div>
+    <h2>Prijs</h2>
+    <p>€ {{.Product.Price}}</p>
+</div>
+
+<div>
+    <h2>Afmetingen</h2>
+    <ul>
+        <li>Gewicht: {{.Product.Weight}} kg</li>
+        <li>Lengte: {{.Product.Length}} cm</li>
+        <li>Breedte: {{.Product.Width}} cm</li>
+        <li>Hoogte: {{.Product.Height}} cm</li>
+    </ul>
+</div>
+
+<div>
+    <h2>Afbeeldingen</h2>
+    {{range $image := images .Product.Images}}
+    <img src="/static/images/p/{{$image}}" alt="Product image" style="max-width: 300px; margin: 10px;">
+    {{end}}
+</div>
+{{else}}
+<p>Product niet gevonden.</p>
+{{end}}
