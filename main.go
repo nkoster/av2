@@ -33,17 +33,20 @@ func main() {
 	// Connect to the database
 	connect()
 
+	mux := http.NewServeMux()
+
 	// Serve static files from the "static" directory
 	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	// Define the routes
-	http.HandleFunc("/", routeMain)
-	http.HandleFunc("/over", routeOver)
-	http.HandleFunc("/producten", routeProducten)
-	http.HandleFunc("/contact", routeContact)
+	mux.HandleFunc("/over", routeOver)
+	mux.HandleFunc("/producten", routeProducten)
+	mux.HandleFunc("/product/", routeProduct)
+	mux.HandleFunc("/contact", routeContact)
+	mux.HandleFunc("/", routeMain)
 
 	// Start the server
 	fmt.Println("Server is running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
