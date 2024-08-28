@@ -11,7 +11,11 @@
 
 <header>
     <img src="/static/images/logo.png" alt="Patterns AV">
-    <nav hx-boost="true">
+    <input type="checkbox" id="toggle" style="display: none;" />
+    <div class="hamburger">
+        <label for="toggle">&#9776;</label>
+    </div>
+    <nav hx-boost="true" class="nav-bar">
         <a href="/" hx-push-url="/" class="nav-link">Home</a>
         <a href="/over" hx-push-url="/over" class="nav-link">Over</a>
         <a href="/producten" hx-push-url="/producten" class="nav-link">Producten</a>
@@ -47,6 +51,12 @@
                 info@patterns-av.nl
             </a>
         </div>
+    </div>
+    <div id="hamburger-menu">
+        <a href="/" hx-push-url="/" class="nav-link">Home</a>
+        <a href="/over" hx-push-url="/over" class="nav-link">Over</a>
+        <a href="/producten" hx-push-url="/producten" class="nav-link">Producten</a>
+        <a href="/contact" hx-push-url="/contact" class="nav-link">Contact</a>
     </div>
     <div class="content">
         {{.Content}}
