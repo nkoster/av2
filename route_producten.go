@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"database/sql"
+	"fmt"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -34,6 +35,7 @@ func routeProducten(w http.ResponseWriter, r *http.Request) {
 	if err := productsTemplate.Execute(&productsContent, map[string]interface{}{
 		"Products": products,
 	}); err != nil {
+		fmt.Println("Error executing template:", err)
 		http.Error(w, "Failed to render products template", http.StatusInternalServerError)
 		return
 	}
@@ -41,6 +43,7 @@ func routeProducten(w http.ResponseWriter, r *http.Request) {
 	// Load the index.html template
 	indexTemplate, err := template.ParseFiles(filepath.Join("ui", "index.html"))
 	if err != nil {
+		fmt.Println("Error parsing template:", err)
 		http.Error(w, "Failed to load index template", http.StatusInternalServerError)
 		return
 	}
@@ -51,6 +54,7 @@ func routeProducten(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := indexTemplate.Execute(w, data); err != nil {
+		fmt.Println("Error executing template:", err)
 		http.Error(w, "Failed to execute index template", http.StatusInternalServerError)
 		return
 	}
@@ -68,7 +72,7 @@ func getProducts(db *sql.DB) ([]Product, error) {
 	}
 	defer rows.Close()
 
-	products := []Product{}
+	var products []Product
 	for rows.Next() {
 		var p Product
 		if err := rows.Scan(&p.ID, &p.Title, &p.Images, &p.Descr, &p.Specs, &p.Price, &p.Weight, &p.Length, &p.Width, &p.Height); err != nil {
