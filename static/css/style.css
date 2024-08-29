@@ -92,6 +92,7 @@ header nav a:hover {
 
 .hamburger {
     color: white;
+    transition: .3s ease-in-out;
 }
 
 .hamburger label {
@@ -116,7 +117,8 @@ header nav a:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    padding-right: 1rem;
     max-height: 0;
     min-height: 0;
     overflow: hidden;
