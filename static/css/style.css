@@ -12,7 +12,7 @@ a {
     font-family: 'Raleway';
     src: url('/static/fonts/Raleway-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900;
-    font-style: normal;
+    font-style: auto;
 }
 
 html, body {
@@ -101,26 +101,12 @@ header nav a:hover {
     user-select: none;
 }
 
-@media (max-width: 48rem) {
-    .orange-bar {
-        display: none;
-    }
-    .nav-bar {
-        display: none;
-    }
-    .hamburger {
-        display: block;
-    }
-}
-
 #hamburger-menu {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     padding-right: 1rem;
-    max-height: 0;
-    min-height: 0;
     overflow: hidden;
     background-color: #222;
     transition: min-height .3s ease-out;
@@ -157,6 +143,18 @@ header nav a:hover {
     }
 }
 
+@media (max-width: 48rem) {
+    .orange-bar {
+        display: none;
+    }
+    .nav-bar {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+}
+
 main {
     overflow-y: auto;
     flex: 1;
@@ -171,20 +169,107 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    /*gap: 2rem;*/
     padding: 2rem;
     min-height: 100%;
 }
 
 .voor-jou {
-    background-color: #EB5D34;
-    width: 32%;
+    width: 40%;
     height: 10%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: flex-end;
     padding-top: 10rem;
+}
+
+.voor-jou-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    transition: .6s ease;
+}
+
+@media (max-width: 100rem) {
+    .voor-jou {
+        width: 40%;
+        padding-top: 5rem;
+    }
+    .voor-jou-box {
+        scale: 80%;
+    }
+}
+
+@media (max-width: 70rem) {
+    .voor-jou {
+        width: 40%;
+        padding-top: 2rem;
+    }
+    .voor-jou-box {
+        scale: 60%;
+    }
+}
+
+@media (max-width: 54rem) {
+    .voor-jou {
+        width: 50%;
+        padding-top: 1.2rem;
+    }
+    .voor-jou-box {
+        scale: 55%;
+    }
+}
+
+@media (max-width: 48rem) {
+    .home-container {
+        background: none;
+    }
+    .voor-jou {
+        width: 100%;
+        padding-top: 1.2rem;
+        justify-content: center;
+        align-items: center;
+    }
+    .voor-jou-box {
+        scale: 70%;
+    }
+}
+
+.voor-jou-box h1 {
+    font-size: 4em;
+    font-weight: 900;
+}
+
+.orange {
+    color: #EB5D34;
+}
+
+.bigger {
+    font-size: 1.2em;
+}
+
+.voor-jou-box p {
+    margin-top: 2rem;
+    white-space: nowrap;
+}
+
+.button {
+    display: inline;
+    background-color: #EB5D34;
+    color: white;
+    margin-top: 2rem;
+    padding: 1rem 2rem;
+    border: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color .5s ease;
+}
+
+.button:hover {
+    background-color: #222;
+    color: cyan;
 }
 
 .icon {
@@ -224,7 +309,7 @@ a.envelope:hover {
 }
 
 .footer {
-    background-color: black;
+    background-color: #222;
     color: white;
     text-align: center;
     padding: 1rem;
