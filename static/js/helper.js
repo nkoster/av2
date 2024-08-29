@@ -26,11 +26,26 @@ document.addEventListener('DOMContentLoaded', function() {
   const hamburger = document.querySelector('.hamburger');
   const menu = document.getElementById('hamburger-menu');
 
+  let toggleState = localStorage.getItem('toggleState') || 'false';
+  if (toggleState === 'true') {
+    toggle.checked = true;
+    menu.style.minHeight = '13rem';
+    hamburger.style.rotate = '-90deg';
+  } else {
+    toggle.checked = false;
+    menu.style.maxHeight = '0';
+    menu.style.minHeight = '0';
+    hamburger.style.rotate = '0deg';
+  }
+
   toggle.addEventListener('change', function() {
     if (toggle.checked) {
+      localStorage.setItem('toggleState', 'true');
       menu.style.minHeight = '13rem';
       hamburger.style.rotate = '-90deg';
     } else {
+      localStorage.setItem('toggleState', 'false');
+      menu.style.maxHeight = '0';
       menu.style.minHeight = '0';
       hamburger.style.rotate = '0deg';
     }
