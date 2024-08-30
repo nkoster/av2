@@ -53,15 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
-window.myLoadingCheck = false;
 window.addEventListener('resize', function() {
-  if (!myLoadingCheck) {
-    window.myLoadingCheck = true;
     setTimeout(() => {
-      console.log('reload');
       window.location.reload();
-      window.myLoadingCheck = false;
-    }, 1000);
-  }
+    }, 1);
 
 });
