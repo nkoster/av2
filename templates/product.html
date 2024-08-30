@@ -1,39 +1,40 @@
-<body>
-
-{{if .Product.Descr}}
-<h1>{{.Product.Title}}</h1>
-
 <div>
-    <h2>Beschrijving</h2>
-    <p>{{.Product.Descr}}</p>
-</div>
+    <h1>{{.Product.Title}}</h1>
+    <img src="/static/images/p/{{index (images .Product.Images) 0}}" id="rotatingImage" class="about_img" onclick="rotateImage()">
+    <script>
+      var images = [
+        {{range images .Product.Images}}
+            "/static/images/p/{{.}}",
+        {{end}}
+      ];
+      console.log('IMAGES:', images);
+      var currentIndex = 0; // Start bij de eerste afbeelding
 
-<div>
+      function rotateImage() {
+        currentIndex++; // Verhoog de index
+        if (currentIndex >= images.length) {
+          currentIndex = 0; // Reset naar 0 als het de laatste afbeelding is
+        }
+        document.getElementById('rotatingImage').src = images[currentIndex]; // Update de bron van de afbeelding
+      }
+    </script>
+    <h2>Omschrijving</h2>
+    <p class="discription_text">{{.Product.Descr}}</p>
     <h2>Specificaties</h2>
-    <p>{{.Product.Specs}}</p>
-</div>
-
-<div>
-    <h2>Prijs</h2>
-    <p>€ {{.Product.Price}}</p>
-</div>
-
-<div>
-    <h2>Afmetingen</h2>
     <ul>
-        <li>Gewicht: {{.Product.Weight}} kg</li>
-        <li>Lengte: {{.Product.Length}} cm</li>
-        <li>Breedte: {{.Product.Width}} cm</li>
-        <li>Hoogte: {{.Product.Height}} cm</li>
+        {{- range $spec := splitLines .Product.Specs }}
+        <li style="margin-left: 20px">{{ $spec }}</li>
+        {{- end }}
     </ul>
+    <ul class="info-list" style="list-style: none">
+        <li><strong>Gewicht &nbsp;</strong> {{kg .Product.Weight}}</li>
+        <li><strong>Hoogte &nbsp;</strong> {{.Product.Height}} mm</li>
+        <li><strong>Lengte &nbsp;</strong> {{.Product.Length}} mm</li>
+        <li><strong>Breedte &nbsp;</strong> {{.Product.Width}} mm</li>
+    </ul>
+    <div class="col-md-6">
+        <div class="price"><span style="color: #0e0c06;">€{{.Product.Price}}</span></div>
+        <div class="meta"><a href="">Verzending</a> en excl. btw.</div>
+        <div class="available"><a href="">Leverbaarheid</a></div>
+    </div>
 </div>
-
-<div>
-    <h2>Afbeeldingen</h2>
-    {{range $image := images .Product.Images}}
-    <img src="/static/images/p/{{$image}}" alt="Product image" style="max-width: 300px; margin: 10px;">
-    {{end}}
-</div>
-{{else}}
-<p>Product niet gevonden.</p>
-{{end}}
