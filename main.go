@@ -30,6 +30,8 @@ func main() {
 		log.Fatal("No .env file in current directory.")
 	}
 
+	port := os.Getenv("PORT")
+
 	// Connect to the database
 	connect()
 
@@ -47,6 +49,6 @@ func main() {
 	mux.HandleFunc("/", routeMain)
 
 	// Start the server
-	fmt.Println("Server is running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	fmt.Printf("Server is running on port %s\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, mux))
 }
