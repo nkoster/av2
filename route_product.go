@@ -13,14 +13,16 @@ import (
 
 func routeProduct(w http.ResponseWriter, r *http.Request) {
 
+	funcMap := template.FuncMap{
+		"images":     images,
+		"kg":         kg,
+		"splitLines": splitLines,
+	}
+
 	productIDStr := strings.TrimPrefix(r.URL.Path, "/product/")
 
 	// Convert the ID to an integer
 	productID, _ := strconv.Atoi(productIDStr)
-
-	funcMap := template.FuncMap{
-		"images": images,
-	}
 
 	// Get the product from the database based on the ID
 	product, err := getProductByID(db, productID)
@@ -56,6 +58,22 @@ func routeProduct(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Failed to execute index template", http.StatusInternalServerError)
 		return
 	}
+}
+
+func kg(a int) string {
+	var result string
+	if a > 1000 {
+		result = fmt.Sprintf("%.2f", float64(a)/1000.0) + " kg"
+		result = strings.Replace(result, ".00 kg", " kg", 1)
+		result = strings.Replace(result, "0 kg", " kg", 1)
+	} else {
+		result = fmt.Sprintf("%d", a) + " gram"
+	}
+	return result
+}
+
+func splitLines(s string) []string {
+	return strings.Split(s, "\n")
 }
 
 // Function to retrieve a single product based on the ID
