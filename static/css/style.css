@@ -47,6 +47,7 @@ header {
     justify-content: center;
     align-items: center;
     background-color: black;
+    height: 3.5rem;
 }
 
 .header-content {
@@ -126,14 +127,29 @@ header nav a:hover {
 }
 
 #hamburger-menu {
+    position: fixed;
+    top: 3.5rem;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
     padding-right: 1rem;
     overflow: hidden;
-    background-color: #222;
-    transition: min-height .3s ease-out;
+    transition: .3s ease-out;
+    z-index: 10;
+}
+
+#hamburger-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(20, 20, 20, 0.7);
+    backdrop-filter: blur(1rem);
+    z-index: -1;
 }
 
 #hamburger-menu a {
@@ -410,4 +426,48 @@ a h3.producten-item {
 a h1.producten-item {
     padding: 1rem;
     margin: 1rem;
+}
+
+.product-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+     align-items: center;
+}
+
+.product-container {
+    margin: 2rem;
+    padding: 0 1rem;
+    width: 100%;
+    max-width: var(--content-max-width);
+}
+
+.image-and-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 48rem) {
+    .image-and-price {
+        flex-direction: column;
+    }
+}
+
+.price-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellowgreen;
+    width: 100%;
+}
+
+.price-box h1 {
+    font-size: 6rem;
+    /*padding: 1rem;*/
+}
+
+#rotatingImage {
+    width: 35rem
 }
