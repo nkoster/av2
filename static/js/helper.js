@@ -1,9 +1,15 @@
+mainElement = document.querySelector('main');
+orangeBar = document.querySelector('.orange-bar');
+hamburgerMenu = document.getElementById('hamburger-menu');
+header = document.querySelector('header');
+
 function highlightActiveLink() {
+
   const navLinks = document.querySelectorAll('header nav a');
   const hamburgerLinks = document.querySelectorAll('#hamburger-menu a');
   const currentURL = window.location.pathname;
-  const mainElement = document.querySelector('main');
-  const orangeBar = document.querySelector('.orange-bar');
+
+  console.log('Current URL:', currentURL);
 
   navLinks.forEach(link => {
     if (link.getAttribute('href') === currentURL) {
@@ -21,21 +27,9 @@ function highlightActiveLink() {
     }
   });
 
-  function logScrollPosition() {
-    console.log('Scroll', mainElement.scrollTop);
-    if (mainElement.scrollTop > 60) {
-      orangeBar.style.height = '0';
-    } else {
-      orangeBar.style.height = '2.5rem';
-    }
-  }
-  mainElement.addEventListener('scroll', logScrollPosition);
 }
 
-document.addEventListener("DOMContentLoaded", highlightActiveLink);
-document.addEventListener("htmx:afterSwap", highlightActiveLink);
-
-document.addEventListener('DOMContentLoaded', function() {
+function toggleMenu() {
   const toggle = document.getElementById('toggle');
   const hamburger = document.querySelector('.hamburger');
   const menu = document.getElementById('hamburger-menu');
@@ -51,6 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
     menu.style.minHeight = '0';
     hamburger.style.rotate = '0deg';
   }
+}
+
+document.addEventListener("DOMContentLoaded", highlightActiveLink);
+document.addEventListener("htmx:afterSwap", highlightActiveLink);
+
+document.addEventListener('DOMContentLoaded', function() {
+  const toggle = document.getElementById('toggle');
+  const hamburger = document.querySelector('.hamburger');
+  const menu = document.getElementById('hamburger-menu');
+
+  toggleMenu();
 
   toggle.addEventListener('change', function() {
     if (toggle.checked) {
@@ -69,7 +74,48 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('resize', function() {
     setTimeout(() => {
-      window.location.reload();
-    }, 1);
-
+      window.location.reload();}, 1);
 });
+
+function logScrollPosition() {
+
+  if (window.location.pathname !== '/producten') {
+    return;
+  }
+
+  // console.log('Scroll', mainElement.scrollTop);
+  localStorage.setItem('scrollPosition', mainElement.scrollTop.toString());
+  if (mainElement.scrollTop > 60) {
+    orangeBar.style.height = '0';
+  } else {
+    orangeBar.style.height = '2.5rem';
+  }
+}
+
+mainElement.addEventListener('scroll', logScrollPosition);
+
+var scrollInterval;
+
+function startScrollInterval() {
+  if (!scrollInterval) {
+    scrollInterval = setInterval(restoreScrollPosition, 500);
+  }
+}
+
+startScrollInterval();
+
+function restoreScrollPosition() {
+
+  if (window.location.pathname !== '/producten') {
+    return;
+  }
+
+  toggleMenu();
+
+  const scrollPosition = localStorage.getItem('scrollPosition');
+  // console.log('Restoring scroll position:', scrollPosition);
+  mainElement.scrollTo({
+    top: parseInt(scrollPosition),
+    behavior: 'smooth'
+  })
+}
