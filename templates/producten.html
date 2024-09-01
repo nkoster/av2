@@ -1,15 +1,17 @@
-{{if .Products}}
-<div class="producten-container">
-{{range $i, $p := .Products}}
-    <a class="producten-item" href="/product/{{$p.ID}}">
-        {{ $images := images $p.Images }}
-        <img src="/static/images/p/{{ index $images 0 }}" alt="Product image" style="max-width: 300px; margin: 10px;">
-        <h3>{{$p.Title}}</h3>
-        <div class="spacer">&nbsp;</div>
-        <h1>€{{$p.Price}}</h1>per dag
-    </a>
-{{end}}
+<div class="producten-content">
+    {{if .Products}}
+    <div class="producten-container">
+    {{range $i, $p := .Products}}
+        <a class="producten-item" href="/product/{{$p.ID}}">
+            {{ $images := images $p.Images }}
+            <img src="/static/images/p/{{ index $images 0 }}" alt="Product image" style="max-width: 300px; margin: 10px;">
+            <h3>{{$p.Title}}</h3>
+            <div class="spacer">&nbsp;</div>
+            <h1>€{{$p.Price}}</h1>per dag
+        </a>
+    {{end}}
+    </div>
+    {{else}}
+    <p>Geen producten gevonden.</p>
+    {{end}}
 </div>
-{{else}}
-<p>Geen producten gevonden.</p>
-{{end}}

@@ -1,3 +1,7 @@
+:root {
+    --content-max-width: 1300px;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -40,8 +44,17 @@ img {
 
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     background-color: black;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-max-width);
     color: white;
     padding: 10px;
     text-align: center;
@@ -49,11 +62,10 @@ header {
 
 header nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: black;
     color: white;
     gap: 2rem;
-    padding-right: 2rem;
 }
 
 header nav a {
@@ -61,7 +73,7 @@ header nav a {
     font-weight: bold;
     font-size: 90%;
     text-decoration: none;
-    padding: 10px;
+    padding: 0 10px;
     text-transform: uppercase;
     transition: color .5s ease-in-out;
 }
@@ -80,14 +92,24 @@ header nav a:hover {
 
 .orange-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background-color: #EB5D34;
     height: 2.5rem;
     width: 100%;
     text-align: center;
     color: black;
-    padding: .5rem 3.2rem .5rem .8rem;
+}
+
+.orange-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: var(--content-max-width);
+    color: white;
+    padding: .5rem 1.2rem .5rem .5rem;
+    text-align: center;
 }
 
 .hamburger {
@@ -153,6 +175,21 @@ header nav a:hover {
     .hamburger {
         display: block;
     }
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: var(--content-max-width);
 }
 
 main {
@@ -316,12 +353,22 @@ a.envelope:hover {
     margin-top: auto;
 }
 
+.producten-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .producten-container {
     margin: 2rem;
+    padding: 0 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     grid-auto-rows: 30rem;
     gap: 3rem;
+    width: 100%;
+    max-width: var(--content-max-width);
 }
 
 .producten-item {
@@ -333,7 +380,6 @@ a.envelope:hover {
     align-items: center;
     border: white 3px solid;
     border-radius: 2rem;
-    /* box shadow */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: all .5s ease;
 }
