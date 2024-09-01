@@ -2,6 +2,9 @@ function highlightActiveLink() {
   const navLinks = document.querySelectorAll('header nav a');
   const hamburgerLinks = document.querySelectorAll('#hamburger-menu a');
   const currentURL = window.location.pathname;
+  const mainElement = document.querySelector('main');
+  const orangeBar = document.querySelector('.orange-bar');
+
   navLinks.forEach(link => {
     if (link.getAttribute('href') === currentURL) {
       link.classList.add('active');
@@ -9,6 +12,7 @@ function highlightActiveLink() {
       link.classList.remove('active');
     }
   });
+
   hamburgerLinks.forEach(link => {
     if (link.getAttribute('href') === currentURL) {
       link.classList.add('active');
@@ -16,6 +20,16 @@ function highlightActiveLink() {
       link.classList.remove('active');
     }
   });
+
+  function logScrollPosition() {
+    console.log('Scroll', mainElement.scrollTop);
+    if (mainElement.scrollTop > 60) {
+      orangeBar.style.height = '0';
+    } else {
+      orangeBar.style.height = '2.5rem';
+    }
+  }
+  mainElement.addEventListener('scroll', logScrollPosition);
 }
 
 document.addEventListener("DOMContentLoaded", highlightActiveLink);

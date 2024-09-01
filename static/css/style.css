@@ -95,16 +95,18 @@ header nav a:hover {
     justify-content: center;
     align-items: center;
     background-color: #EB5D34;
-    height: 2.5rem;
     width: 100%;
     text-align: center;
     color: black;
+    transition: .3s ease-out;
+    overflow: hidden;
 }
 
 .orange-bar-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 2.5rem;
     width: 100%;
     max-width: var(--content-max-width);
     color: white;
