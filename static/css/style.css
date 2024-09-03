@@ -118,6 +118,7 @@ header nav a:hover {
 .hamburger {
     color: white;
     transition: .3s ease-in-out;
+    rotate: -90deg;
 }
 
 .hamburger label {
