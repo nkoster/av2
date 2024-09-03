@@ -1,40 +1,41 @@
-<div>
-    <h1>{{.Product.Title}}</h1>
-    <img src="/static/images/p/{{index (images .Product.Images) 0}}" id="rotatingImage" class="about_img" onclick="rotateImage()">
-    <script>
-      var images = [
-        {{range images .Product.Images}}
-            "/static/images/p/{{.}}",
-        {{end}}
-      ];
-      console.log('IMAGES:', images);
-      var currentIndex = 0; // Start bij de eerste afbeelding
-
-      function rotateImage() {
-        currentIndex++; // Verhoog de index
-        if (currentIndex >= images.length) {
-          currentIndex = 0; // Reset naar 0 als het de laatste afbeelding is
-        }
-        document.getElementById('rotatingImage').src = images[currentIndex]; // Update de bron van de afbeelding
-      }
-    </script>
-    <h2>Omschrijving</h2>
-    <p class="discription_text">{{.Product.Descr}}</p>
-    <h2>Specificaties</h2>
-    <ul>
-        {{- range $spec := splitLines .Product.Specs }}
-        <li style="margin-left: 20px">{{ $spec }}</li>
-        {{- end }}
-    </ul>
-    <ul class="info-list" style="list-style: none">
-        <li><strong>Gewicht &nbsp;</strong> {{kg .Product.Weight}}</li>
-        <li><strong>Hoogte &nbsp;</strong> {{.Product.Height}} mm</li>
-        <li><strong>Lengte &nbsp;</strong> {{.Product.Length}} mm</li>
-        <li><strong>Breedte &nbsp;</strong> {{.Product.Width}} mm</li>
-    </ul>
-    <div class="col-md-6">
-        <div class="price"><span style="color: #0e0c06;">€{{.Product.Price}}</span></div>
-        <div class="meta"><a href="">Verzending</a> en excl. btw.</div>
-        <div class="available"><a href="">Leverbaarheid</a></div>
+<div class="product-content">
+    <div class="product-container">
+        <h1>{{.Product.Title}}</h1>
+        <div class="image-and-price">
+            <img src="/static/images/p/{{index (images .Product.Images) 0}}" id="rotatingImage" onclick="rotateImage()">
+            <script>
+              var images = [
+                {{range images .Product.Images}}
+                    "/static/images/p/{{.}}",
+                {{end}}
+              ];
+              var currentIndex = 0;
+              function rotateImage() {
+                currentIndex++;
+                if (currentIndex >= images.length) {
+                  currentIndex = 0;
+                }
+                document.getElementById('rotatingImage').src = images[currentIndex];
+              }
+            </script>
+            <div class="product-price-box">
+                <h1><span class="product-euro">€</span>{{.Product.Price}}</h1>
+                <p class="nobreak">Prijs per dag / Exclusief BTW</p>
+            </div>
+        </div>
+        <ul class="info-list">
+            <li><strong>Gewicht &nbsp;</strong> {{kg .Product.Weight}}</li>
+            <li><strong>Hoogte &nbsp;</strong> {{.Product.Height}} mm</li>
+            <li><strong>Lengte &nbsp;</strong> {{.Product.Length}} mm</li>
+            <li><strong>Breedte &nbsp;</strong> {{.Product.Width}} mm</li>
+        </ul>
+        <h4>Omschrijving</h4>
+        <p>{{.Product.Descr}}</p>
+        <h4>Specificaties</h4>
+        <ul class="specs">
+            {{- range $spec := splitLines .Product.Specs }}
+            <li style="margin-left: 20px">{{ $spec }}</li>
+            {{- end }}
+        </ul>
     </div>
 </div>
