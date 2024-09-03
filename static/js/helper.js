@@ -55,39 +55,62 @@ toggle.addEventListener('change', function() {
 
 highlightActiveLink();
 
-function logScrollPosition() {
+function logScrollPos() {
 
-  if (window.location.pathname !== '/producten') {
-    return;
+  if (window.location.pathname === '/producten') {
+    localStorage.setItem('scrollPosProducts', mainElement.scrollTop.toString());
+    if (mainElement.scrollTop > 60) {
+      orangeBar.style.height = '0';
+    } else {
+      orangeBar.style.height = '2.5rem';
+    }
   }
 
-  localStorage.setItem('scrollPosition', mainElement.scrollTop.toString());
-  if (mainElement.scrollTop > 60) {
-    orangeBar.style.height = '0';
-  } else {
-    orangeBar.style.height = '2.5rem';
+  if (window.location.pathname.startsWith('/product/')) {
+    localStorage.setItem('scrollPosProduct', mainElement.scrollTop.toString());
+    if (mainElement.scrollTop > 60) {
+      orangeBar.style.height = '0';
+    } else {
+      orangeBar.style.height = '2.5rem';
+    }
   }
 }
 
-mainElement.addEventListener('scroll', logScrollPosition);
+mainElement.addEventListener('scroll', () => {
+  logScrollPos();
+});
 
 var scrollInterval;
 
 function startScrollInterval() {
   if (!scrollInterval) {
-    scrollInterval = setInterval(restoreScrollPosition, 500);
+    scrollInterval = setInterval(() => {
+      restoreScrollPosProducts();
+      restoreScrollPosProduct();
+    }, 500);
   }
 }
 
 startScrollInterval();
 
-function restoreScrollPosition() {
+function restoreScrollPosProducts() {
   if (window.location.pathname !== '/producten') {
     return;
   }
-  const scrollPosition = localStorage.getItem('scrollPosition');
+  const scrollPosProducts = localStorage.getItem('scrollPosProducts');
   mainElement.scrollTo({
-    top: parseInt(scrollPosition),
+    top: parseInt(scrollPosProducts),
+    behavior: 'smooth'
+  })
+}
+
+function restoreScrollPosProduct() {
+  if (!window.location.pathname.startsWith('/product/')) {
+    return;
+  }
+  const scrollPosProduct = localStorage.getItem('scrollPosProduct');
+  mainElement.scrollTo({
+    top: parseInt(scrollPosProduct),
     behavior: 'smooth'
   })
 }
