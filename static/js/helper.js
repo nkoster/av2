@@ -9,8 +9,6 @@ function highlightActiveLink() {
   const hamburgerLinks = document.querySelectorAll('#hamburger-menu a');
   const currentURL = window.location.pathname;
 
-  console.log('Current URL:', currentURL);
-
   navLinks.forEach(link => {
     if (link.getAttribute('href') === currentURL) {
       link.classList.add('active');
@@ -29,53 +27,33 @@ function highlightActiveLink() {
 
 }
 
-function toggleMenu() {
-  const toggle = document.getElementById('toggle');
-  const hamburger = document.querySelector('.hamburger');
-  const menu = document.getElementById('hamburger-menu');
+document.addEventListener("htmx:afterSwap", () => {
+  highlightActiveLink();
+});
 
-  let toggleState = localStorage.getItem('toggleState') || 'false';
-  if (toggleState === 'true') {
-    toggle.checked = true;
+toggle = document.getElementById('toggle');
+hamburger = document.querySelector('.hamburger');
+menu = document.getElementById('hamburger-menu');
+
+setTimeout(() => {
+  toggle.checked = false;
+  menu.style.maxHeight = '0';
+  menu.style.minHeight = '0';
+  hamburger.style.rotate = '0deg';
+}, 300)
+
+toggle.addEventListener('change', function() {
+  if (toggle.checked) {
     menu.style.minHeight = '13rem';
     hamburger.style.rotate = '-90deg';
   } else {
-    toggle.checked = false;
     menu.style.maxHeight = '0';
     menu.style.minHeight = '0';
     hamburger.style.rotate = '0deg';
   }
-}
-
-document.addEventListener("DOMContentLoaded", highlightActiveLink);
-document.addEventListener("htmx:afterSwap", highlightActiveLink);
-
-document.addEventListener('DOMContentLoaded', function() {
-  const toggle = document.getElementById('toggle');
-  const hamburger = document.querySelector('.hamburger');
-  const menu = document.getElementById('hamburger-menu');
-
-  toggleMenu();
-
-  toggle.addEventListener('change', function() {
-    if (toggle.checked) {
-      localStorage.setItem('toggleState', 'true');
-      menu.style.minHeight = '13rem';
-      hamburger.style.rotate = '-90deg';
-    } else {
-      localStorage.setItem('toggleState', 'false');
-      menu.style.maxHeight = '0';
-      menu.style.minHeight = '0';
-      hamburger.style.rotate = '0deg';
-    }
-  });
-
 });
 
-window.addEventListener('resize', function() {
-    setTimeout(() => {
-      window.location.reload();}, 1);
-});
+highlightActiveLink();
 
 function logScrollPosition() {
 
@@ -83,7 +61,6 @@ function logScrollPosition() {
     return;
   }
 
-  // console.log('Scroll', mainElement.scrollTop);
   localStorage.setItem('scrollPosition', mainElement.scrollTop.toString());
   if (mainElement.scrollTop > 60) {
     orangeBar.style.height = '0';
@@ -105,15 +82,10 @@ function startScrollInterval() {
 startScrollInterval();
 
 function restoreScrollPosition() {
-
   if (window.location.pathname !== '/producten') {
     return;
   }
-
-  toggleMenu();
-
   const scrollPosition = localStorage.getItem('scrollPosition');
-  // console.log('Restoring scroll position:', scrollPosition);
   mainElement.scrollTo({
     top: parseInt(scrollPosition),
     behavior: 'smooth'
