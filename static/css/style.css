@@ -586,3 +586,22 @@ a h1.producten-item {
 .nobreak {
     white-space: nowrap;
 }
+
+.voorwaarden-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.voorwaarden-container {
+    margin: 2rem;
+    padding: 0 3rem;
+    width: 100%;
+    max-width: var(--content-max-width);
+    line-height: 2rem;
+}
+
+.voorwaarden-container h2 {
+    padding: 1.2rem 0 .3rem 0;
+}
