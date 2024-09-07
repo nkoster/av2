@@ -46,6 +46,7 @@ func main() {
 	mux.HandleFunc("/producten", routeProducten)
 	mux.HandleFunc("/product/", routeProduct)
 	mux.HandleFunc("/contact", routeContact)
+	mux.HandleFunc("/voorwaarden", routeVoorwaarden)
 	mux.HandleFunc("/", routeMain)
 
 	// Start the server
