@@ -217,7 +217,7 @@ main {
     justify-content: flex-start;
     align-items: flex-start;
     padding: 2rem;
-    min-height: 100%;
+    min-height: 80vh;
 }
 
 .voor-jou {
@@ -319,35 +319,35 @@ main {
     color: cyan;
 }
 
-.icon {
+.orange-bar-content .icon {
     margin-right: .2em;
 }
 
-a.location {
+.orange-bar-content a.location {
     color: black;
     transition: color .5s ease;
 }
 
-a.location:hover {
+.orange-bar-content a.location:hover {
     color: white;
 }
 
-a.phone-number {
+.orange-bar-content a.phone-number {
     color: black;
     transition: color .5s ease;
 }
 
-a.phone-number:hover {
+.orange-bar-content a.phone-number:hover {
     color: white;
 }
 
-a.envelope {
+.orange-bar-content a.envelope {
     margin-left: 3rem;
     color: black;
     transition: color .5s ease;
 }
 
-a.envelope:hover {
+.orange-bar-content a.envelope:hover {
     color: white;
 }
 
@@ -356,11 +356,85 @@ a.envelope:hover {
 }
 
 .footer {
-    background-color: #222;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+    background-color: rgb(54, 54, 54);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
     margin-top: auto;
+    width: 100%;
+}
+
+.footer-content {
+    margin: 3rem 15rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 10rem;
+    width: 100%;
+    max-width: calc(var(--content-max-width) - 20rem);
+    color: white;
+    line-height: 1.5rem;
+}
+
+.footer-content h2 {
+    margin-bottom: 1rem;
+}
+
+.footer-content-item {
+}
+
+.footer-content-item a {
+    color: white;
+    transition: .5s ease;
+}
+
+.footer-content-item.voorwaarden a{
+    color: white;
+    text-decoration: underline;
+    text-underline-color: #EB5D34;
+    transition: .5s ease;
+}
+
+.footer-content-item a:hover {
+    color: cyan;
+}
+
+.footer-content .social {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.footer-content-item .social a.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: white;
+    color: rgb(54, 54, 54);
+    border-radius: 50%;
+    margin-right: .3rem;
+}
+
+.footer-content-item .social a.circle:hover {
+    background-color: #EB5D34;
+    color: white;
+}
+
+.footer-content-item.kontakt a {
+    color: white;
+    transition: .5s ease;
+    line-height: 2rem;
+}
+
+.footer-content-item.kontakt a:hover {
+    color: cyan;
+}
+
+.line-height {
+    line-height: 1.6rem;
 }
 
 .producten-content {
