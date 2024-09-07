@@ -59,21 +59,18 @@ function logScrollPos() {
 
   if (window.location.pathname === '/producten') {
     localStorage.setItem('scrollPosProducts', mainElement.scrollTop.toString());
-    if (mainElement.scrollTop > 60) {
-      orangeBar.style.height = '0';
-    } else {
-      orangeBar.style.height = '2.5rem';
-    }
   }
 
   if (window.location.pathname.startsWith('/product/')) {
     localStorage.setItem('scrollPosProduct', mainElement.scrollTop.toString());
-    if (mainElement.scrollTop > 60) {
-      orangeBar.style.height = '0';
-    } else {
-      orangeBar.style.height = '2.5rem';
-    }
   }
+
+  if (mainElement.scrollTop > 60) {
+    orangeBar.style.height = '0';
+  } else {
+    orangeBar.style.height = '2.5rem';
+  }
+
 }
 
 mainElement.addEventListener('scroll', () => {
