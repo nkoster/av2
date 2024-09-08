@@ -111,3 +111,33 @@ function restoreScrollPosProduct() {
     behavior: 'smooth'
   })
 }
+
+if (window.location.pathname === '/') {
+  var slides = document.querySelector('.slides');
+  var slideElements = document.querySelectorAll('.slide');
+  var totalSlides = slideElements.length;
+  var slideIndex = 0;
+  var slideWidth = slideElements[0].offsetWidth;
+
+  function updateSlideWidth() {
+    slideWidth = slideElements[0].offsetWidth;
+  }
+
+  window.addEventListener('resize', updateSlideWidth);
+
+  function slideShow() {
+    slideIndex++;
+    slides.style.transition = "transform 1s ease";
+    slides.style.transform = `translateX(${-slideIndex * slideWidth}px)`;
+
+    if (slideIndex === totalSlides - 1) {
+      setTimeout(() => {
+        slides.style.transition = "none";
+        slides.style.transform = "translateX(0)";
+        slideIndex = 0;
+      }, 1000);
+    }
+  }
+
+  setInterval(slideShow, 10000);
+}
