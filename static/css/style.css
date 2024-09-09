@@ -676,7 +676,7 @@ a h1.producten-item {
 .slideshow-container {
     position: relative;
     width: 60rem;
-    max-width: 100%; /* Zorg ervoor dat het 100% van de schermbreedte gebruikt */
+    max-width: 100%;
     margin: auto;
     overflow: hidden;
 }
@@ -704,5 +704,9 @@ a h1.producten-item {
 
     .slideshow-container img {
         object-fit: cover;
+    }
+
+    .slider-container {
+        padding: .5rem;
     }
 }
