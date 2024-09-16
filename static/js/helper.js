@@ -27,9 +27,8 @@ function highlightActiveLink() {
 
 }
 
-document.addEventListener("htmx:afterSwap", () => {
-  highlightActiveLink();
-});
+document.removeEventListener("htmx:afterSwap", highlightActiveLink);
+document.addEventListener("htmx:afterSwap", highlightActiveLink);
 
 toggle = document.getElementById('toggle');
 hamburger = document.querySelector('.hamburger');
@@ -42,7 +41,7 @@ setTimeout(() => {
   hamburger.style.rotate = '0deg';
 }, 300)
 
-toggle.addEventListener('change', function() {
+hamburgerToggleFunction = function() {
   if (toggle.checked) {
     menu.style.minHeight = '13rem';
     hamburger.style.rotate = '-90deg';
@@ -51,7 +50,10 @@ toggle.addEventListener('change', function() {
     menu.style.minHeight = '0';
     hamburger.style.rotate = '0deg';
   }
-});
+}
+
+toggle.removeEventListener('change', hamburgerToggleFunction);
+toggle.addEventListener('change', hamburgerToggleFunction);
 
 highlightActiveLink();
 
@@ -73,22 +75,15 @@ function logScrollPos() {
 
 }
 
-mainElement.addEventListener('scroll', () => {
-  logScrollPos();
-});
+mainElement.removeEventListener('scroll', logScrollPos);
+mainElement.addEventListener('scroll', logScrollPos);
 
-var scrollInterval;
-
-function startScrollInterval() {
-  if (!scrollInterval) {
-    scrollInterval = setInterval(() => {
-      restoreScrollPosProducts();
-      restoreScrollPosProduct();
-    }, 500);
-  }
+if (typeof scrollInterval === 'undefined') {
+  scrollInterval = setInterval(() => {
+    restoreScrollPosProducts();
+    restoreScrollPosProduct();
+  }, 500);
 }
-
-startScrollInterval();
 
 function restoreScrollPosProducts() {
   if (window.location.pathname !== '/producten') {
@@ -123,8 +118,6 @@ if (window.location.pathname === '/') {
     slideWidth = slideElements[0].offsetWidth;
   }
 
-  window.addEventListener('resize', updateSlideWidth);
-
   function slideShow() {
     slideIndex++;
     slides.style.transition = "transform 1s ease";
@@ -139,5 +132,9 @@ if (window.location.pathname === '/') {
     }
   }
 
-  setInterval(slideShow, 10000);
+  if (typeof slideShowInterval === 'undefined') {
+    slideShowInterval = setInterval(slideShow, 10000);
+    window.addEventListener('resize', updateSlideWidth);
+  }
+
 }
