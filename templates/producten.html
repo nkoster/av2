@@ -7,7 +7,10 @@
             <img src="/static/images/p/{{ index $images 0 }}" alt="Product image" style="max-width: 300px; margin: 10px;">
             <h3>{{$p.Title}}</h3>
             <div class="spacer">&nbsp;</div>
-            <h1>€{{$p.Price}}</h1>per dag
+            <div class="prijs-per-dag">
+                <h1>€{{$p.Price}}</h1>
+                <div> &nbsp; per dag</div>
+            </div>
         </a>
     {{end}}
     </div>
